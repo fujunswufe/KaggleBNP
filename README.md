@@ -55,5 +55,7 @@
 
 6. Until now, there are several result of train dataset after data cleaning, imputation and feature selection. 
 
+## Kaggle Forum##
+1. Using missing value count per observation as a predictor
 
 
