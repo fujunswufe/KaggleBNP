@@ -19,6 +19,8 @@ table(col.const) # no constant columns
 cat("remove duplicated columns\n")
 table(duplicated(as.list(train))) # no duplicated columns 
 
+
+
 cat("separate numeric and non numeric columns\n")
 train.num <- train[, sapply(train, is.numeric)]
 train.char <- train[, sapply(train, is.character)]
@@ -31,6 +33,11 @@ cat("coerce character variables to factor\n")
 ## summary(train.char)
 char.names <- names(train.char)
 for (f in char.names) {
+      # if (class(train[[f]])=="character") { 
+      #      levels <- unique(c(train[[f]], test[[f]]))
+      #      train[[f]] <- factor(train[[f]], levels=levels)
+      #      test[[f]]  <- factor(test[[f]],  levels=levels)
+      # }
       levels <- unique(c(train.char[[f]], test.char[[f]]))
       # train.char[[f]] <- as.integer(factor(train.char[[f]], levels=levels)) # use for xgboost
       # test.char[[f]]  <- as.integer(factor(test.char[[f]],  levels=levels))
