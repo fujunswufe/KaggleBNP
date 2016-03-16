@@ -1,6 +1,6 @@
 #Project process#
 
-###Take R as the tool for this project###
+##Take R as the tool for this project###
 
 1. Load the dataset. Package "readr"
   1. can also use fread
