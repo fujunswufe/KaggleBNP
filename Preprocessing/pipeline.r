@@ -9,8 +9,13 @@ train$target <- as.factor(train$target)
 target <- train$target
 target <- as.data.frame(target)
 
+cat("remove ID and target variable ")
 train <- train[, -c(1:2)]
 test <- test[, -1]
+
+cat("missing value count per observation as a predictor")
+count.missing.train <- apply(train, 1, function(x) sum(is.na(x)))
+count.missing.test <- apply(test, 1, function(x) sum(is.na(x)))
 
 cat("check missing value percentile\n")
 mean(is.na(train)) ## overall missing value
@@ -46,40 +51,48 @@ cat("find and remove redundant variables for numeric")
 library(corrplot)
 library(caret)
 corr.Matrix <- cor(train.num, use="pairwise.complete.obs")
-corr.75 <- findCorrelation(corr.Matrix, cutoff = 0.75)
-train.num.75 <- train.num[, -corr.75]
+
+corr.80 <- findCorrelation(corr.Matrix, cutoff = 0.80)
+train.num.80 <- train.num[, -corr.80]
 corrplot(corr.Matrix, order = "hclust")
 
-# corr.85 <- findCorrelation(corr.Matrix, cutoff = 0.85)
-# train.num.85 <- train.num[, -corr.85]
-
-# corr.90 <- findCorrelation(corr.Matrix, cutoff = 0.90)
-# train.num.90 <- train.num[, -corr.90]
+corr.90 <- findCorrelation(corr.Matrix, cutoff = 0.90)
+train.num.90 <- train.num[, -corr.90]
 
 cat("imputation on missing value")
-train.num.75[is.na(train.num.75)] <- -1
-train1 <- cbind(train.num.75, train.char)
+train.num.80[is.na(train.num.80)] <- -1
+train1 <- cbind(train.num.80, train.char)
 train1 <- cbind(train1, target)
 train1[is.na(train1)] <- -1
 
+train.num.90[is.na(train.num.90)] <- -1
+train2 <- cbind(train.num.90, train.char)
+train2 <- cbind(train2, target)
+train2[is.na(train2)] <- -1
+
+temp.target <- target 
+rm(target)
+
 library(FSelector)
-weights <- symmetrical.uncertainty(target~., train1)
+weights <- symmetrical.uncertainty(train$target~., train1)
 print(weights)
 subset <- cutoff.k(weights, 50)
 train.clean <- train1[, subset]
-train.clean <- cbind(train.clean, target)
 
+weights2 <- symmetrical.uncertainty(target~., train2)
+print(weights2)
+subset2 <- cutoff.k(weights2, 60)
+train.clean <- train1[, subset]
+
+test[is.na(test)] <- -1 
+test.clean.80 <- test[, colnames(train.clean)]
+
+train.clean <- cbind(train.clean, target)
 
 
 cat("write cleaning files to disk")
 write.csv(train.clean, "train_clean.csv", row.names = F)
 saveRDS(train.clean, "train_clean.rds")
-
-
-
-# subset <- cutoff.biggest.diff(weights)
-# f <- as.simple.formula(subset, "target")
-# print(f)
 
 
 

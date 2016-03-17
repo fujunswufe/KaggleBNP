@@ -19,8 +19,6 @@ table(col.const) # no constant columns
 cat("remove duplicated columns\n")
 table(duplicated(as.list(train))) # no duplicated columns 
 
-
-
 cat("separate numeric and non numeric columns\n")
 train.num <- train[, sapply(train, is.numeric)]
 train.char <- train[, sapply(train, is.character)]
