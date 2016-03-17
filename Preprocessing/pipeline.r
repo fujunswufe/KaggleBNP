@@ -16,6 +16,8 @@ test <- test[, -1]
 cat("missing value count per observation as a predictor")
 count.missing.train <- apply(train, 1, function(x) sum(is.na(x)))
 count.missing.test <- apply(test, 1, function(x) sum(is.na(x)))
+count.missing.train <- as.data.frame(count.missing.train)
+count.missing.test <- as.data.frame(count.missing.test)
 
 cat("check missing value percentile\n")
 mean(is.na(train)) ## overall missing value
@@ -69,9 +71,6 @@ train.num.90[is.na(train.num.90)] <- -1
 train2 <- cbind(train.num.90, train.char)
 train2 <- cbind(train2, target)
 train2[is.na(train2)] <- -1
-
-temp.target <- target 
-rm(target)
 
 library(FSelector)
 weights <- symmetrical.uncertainty(train$target~., train1)
