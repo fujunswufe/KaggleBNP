@@ -55,6 +55,10 @@
 
 6. Until now, there are several result of train dataset after data cleaning, imputation and feature selection. 
 
+
+7. The baseline preprocessing method is using all the variables and imputing -1 to NAs. 
+
+
 ## Kaggle Forum##
 1. Using missing value count per observation as a predictor
 
