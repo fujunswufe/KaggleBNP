@@ -1,3 +1,6 @@
+# this preprocessing pipeline is for imputating missing value to -1 
+# however, this is a naive way
+
 setwd("~/GitHub/KaggleBNP")
 
 library(readr)
@@ -62,36 +65,56 @@ corr.90 <- findCorrelation(corr.Matrix, cutoff = 0.90)
 train.num.90 <- train.num[, -corr.90]
 
 cat("imputation on missing value")
-train.num.80[is.na(train.num.80)] <- -1
+# train.num.80[is.na(train.num.80)] <- -1
 train1 <- cbind(train.num.80, train.char)
 train1 <- cbind(train1, target)
 train1[is.na(train1)] <- -1
 
-train.num.90[is.na(train.num.90)] <- -1
+# train.num.90[is.na(train.num.90)] <- -1
 train2 <- cbind(train.num.90, train.char)
 train2 <- cbind(train2, target)
 train2[is.na(train2)] <- -1
 
+cat("feature ranking, including correlation and entropy based")
 library(FSelector)
-weights <- symmetrical.uncertainty(train$target~., train1)
+weights <- symmetrical.uncertainty(target~., train1)
 print(weights)
 subset <- cutoff.k(weights, 50)
-train.clean <- train1[, subset]
+train.clean1 <- train1[, subset]
 
 weights2 <- symmetrical.uncertainty(target~., train2)
 print(weights2)
 subset2 <- cutoff.k(weights2, 60)
-train.clean <- train1[, subset]
+train.clean2 <- train2[, subset2]
 
 test[is.na(test)] <- -1 
-test.clean.80 <- test[, colnames(train.clean)]
+test.clean.80 <- test[, colnames(train.clean1)]
+test.clean.80 <- cbind(test.clean.80, count.missing.test)
 
-train.clean <- cbind(train.clean, target)
+test.clean.90 <- test[, colnames(train.clean2)]
+test.clean.90 <- cbind(test.clean.90, count.missing.test)
+
+train.clean1 <- cbind(train.clean, target)
+train.clean1 <- cbind(train.clean1, count.missing.train)
+
+train.clean2 <- cbind(train.clean2, target)
+train.clean2 <- cbind(train.clean2, count.missing.train)
 
 
 cat("write cleaning files to disk")
-write.csv(train.clean, "train_clean.csv", row.names = F)
-saveRDS(train.clean, "train_clean.rds")
+write.csv(train.clean1, "train_clean1.csv", row.names = F)
+saveRDS(train.clean1, "train_clean1.rds")
+
+write.csv(train.clean2, "train_clean2.csv", row.names = F)
+saveRDS(train.clean2, "train_clean2.rds")
+
+write.csv(test.clean.80, "test_clean1.csv", row.names = F)
+saveRDS(test.clean.80, "test_clean1.rds")
+
+write.csv(test.clean.90, "test_clean2.csv", row.names = F)
+saveRDS(test.clean.90, "test_clean2.rds")
+
+
 
 
 
