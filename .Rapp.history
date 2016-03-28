@@ -1,0 +1,298 @@
+actor.idx = which(colSums(actor.mat) > 0)#
+actor.mat = actor.mat[actor.idx, actor.idx]
+View(`actor.mat`)
+df = subset(dataset, actorID %in% actors)#
+g = graph.data.frame(df, directed = T)#
+mat = get.adjacency(g)#
+m2 = t(as.matrix(mat)) %*% as.matrix(mat)
+dim(m2)
+View(`m2`)
+actor.idx = which(colSums(m2) > 0)#
+actor.mat = m2[actor.idx, actor.idx]
+View(`actor.mat`)
+dim(actor.mat)
+dim(m2)
+diag(actor.mat) = 0
+actor.idx = which(colSums(actor.mat) > 0)
+actor.mat = actor.mat[actor.idx, actor.idx]
+dim(acotr.mat)
+dim(actor.mat)
+View(`actor.mat`)
+head(df)
+View(df)
+head(d1)
+tail(d1)
+d1
+750*0.07
+library(igraph)#
+data.path <- "https://raw.githubusercontent.com/CloudFlix/CloudFlix/master/Dataset/movie_actors.dat"#
+dataset = read.csv(data.path, sep = "\t", header = T)
+head(dataset)
+d1 = subset(dataset, ranking == 1)
+actors = sort(table(d1$actorID), decreasing = T)
+actors = rownames(actors[1:50])
+actors[1:5]
+df <- subset(dataset, actorID %in% actors)
+head(df)
+g = graph.data.frame(df, directed = T)
+g
+mat = get.adjacency(g)
+head(mat)
+m2 = t(as.matrix(mat)) %*% as.matrix(mat)
+View(`m2`)
+mat[1:20]
+mat
+actor.idx = which(colSums(m2) > 0)#
+actor.mat = m2[actor.idx, actor.idx]
+View(`actor.mat`)
+diag(actor.mat) = 0
+View(`actor.mat`)
+dim(acotr.mat)
+dim(actor.mat)
+View(`actor.mat`)
+m2 <- cbind(1, 1:4)
+m2
+colnames(m2) <- c("x","Y")
+m2
+rownames(m2) <- rownames(m2, do.NULL = FALSE, prefix = "Obs.")
+m2
+colnames(m2, do.NULL = FALSE)
+y <- gl(2, 4, 8)#
+levels(y) <- c("low", "high")#
+y
+y <- gl(2, 4, 8)
+y
+22+8.5+1.95
+32.45*0.9
+a <- 5+5.4+22+1.95+8.5
+a
+a*0.9
+m <- matrix(data=cbind(rnorm(30, 0), rnorm(30, 2), rnorm(30, 5)), nrow=30, ncol=3)
+m
+sapply(1:3, function(x) mean(m[,x]))
+a <- c(rep("A", 3), rep("B", 3), rep("C",2))#
+b <- c(1,1,2,4,1,1,2,2)#
+df <-data.frame(a,b)
+df
+df[duplicated(df), ]
+df[!duplicated(df), ]
+rm(a)
+rm(b)
+rm(df)
+a <- c(rep("A", 3), rep("B", 3), rep("C",2))
+b <- c(rep("A", 3), rep("B", 3), rep("C",2))
+b <- c(1,1,2,4,1,1,2,2)
+a <- c(rep("A", 3), rep("B", 3), rep("C",2))
+b <- c(rep("A", 3), rep("B", 3), rep("C",2))
+c <- c(1,1,2,4,1,1,2,2)
+df <-data.frame(a,b,c)
+df
+table(duplicated(as.list(df)))
+df <- subset(df, select=!duplicated(as.list(df)))
+df
+df <- data.frame(list(A=c("","xyz","jkl"), B=c(12,"",100)))
+df
+df[df==""]<-NA
+df
+df <- data.frame(list(A=c("","xyz","jkl"), B=c(12,NA,100)))
+df
+df[df==""]<-NA
+df
+head(airquality)
+str(airquality)
+dim(airquality)
+data <- airquality
+data
+data[4:10, 3] <- rep(NA, 7)
+?rep
+data[1:5,4] <- NA
+summary(data)
+data
+data <- data[-c(5,6)]
+summary(data)
+pMiss <- function(x){sum(is.na(x))/length(x)*100}
+apply(data,2,pMiss)
+apply(data,1,pMiss)
+library(mice)
+install.packages("mice")
+library(mice)
+md.pattern(data)
+methods(mice)
+?mice
+?polling
+?complete
+tempData <- mice(data,m=5,maxit=50,meth='pmm',seed=500)
+?complete
+?mice
+library(mice)
+?mice
+library(mice)
+?mice
+data.lookup <- format(seq(as.Date("2000-01-01"), as.Date("2010-12-31"), by = "1 day"))
+data.lookup
+match("2004-01-19", data.lookup)
+366+365*3+19
+data.lookup[1337]
+as.Data("2012-08-30")
+as.Date("2012-08-30")
+as.Date("08/30/2012", format = "%m%d%Y")
+as.Date("08/30/2012", format = "%m/%d/%Y")
+as.Date(41149, origin="1990-01-01")
+Sys.Date() - as.Date("1970-01-01")
+Sys.Date()
+unclass(Sys.Date())
+as.POSIXlt(Sys.time())
+unclass(as.POSIXlt(Sys.time()))
+?round
+difftime(Sys.Date(), as.Date("1970-01-01"), units = "weeks")
+example.week <- difftime(Sys.Date(), as.Date("1970-01-01"), units = "weeks")
+example.week
+is.character(example.week)
+is.numeric(example.eeek)
+is.numeric(example.week)
+typeof(example.week)
+example.week+1000
+example.week <- difftime(Sys.Date(), as.Date("1970-01-01"), units = "days")
+example.week
+a <- matrix(1:20, nrow=5)
+a
+apply(a,2,mean)
+a <- data.frame(x1 = rnorm(100), x2 = sample(c("a","b"), 100, replace = T), x3 = factor(c(rep("a",50) , rep("b",50))))
+a
+a2 <- lapply(a, as.factor)
+a2
+str(a2)
+a2
+a3 <- sapply(a, as.factor)
+a3
+str(a3)
+lapply(a3, class)
+typeof(a3)
+typeof(a2)
+test1 <- list( c(a='a',b='b',c='c'), c(a='d',b='e',c='f'))
+test1
+as.data.frame(test1)
+(ff <- factor(substring("statistics", 1:10, 1:10), levels = letters))
+as.integer(ff)
+difftime(Sys.Date(), as.Date("2000-1-1"), units="weeks")
+Sys.Date()
+Sys.time()
+library(caret)
+?cor
+library(xgboost)
+data(agaricus.train, package='xgboost')
+data(agaricus.test, package='xgboost')
+train <- agaricus.train
+test <- agaricus.test
+str(train)
+class(train)
+typeof(train)
+dim(train&data)
+dim(train$data)
+class(train$label)
+class(train$data)[1]
+class(train$data)
+class(train$data)[1]
+class(train[[1]])
+library(xgboost)
+xgb.train
+?xgb.train
+0.144+0.093+0.184+0.048+0.166+0.155+0.082+0.128
+sqrt(1.642956)
+sqrt(3.6323111)
+804*6.3
+700*6.3
+?cor
+43-16
+2.15+1.19+2.69+2.09+1.19+1.19+1.19*2+0.99+1.49
+?cmdscale
+？cor
+?cor
+65*6.5
+50000/6.5
+139*6.6
+2^(-100.4)
+2^(-0.02)
+2^(-0.2)
+10^(-0.2)
+5 + 827 + 9 + 2
+6 / (843+1446)
+1 / 0
+library(ggplot2)
+df <- data.frame(#
+      variable = c("reviews with tips", "reviews without tips"),#
+      value = c(0.01238308, 0.9876169)#
+)#
+ggplot(df, aes(x = "", y = value, fill = variable)) +#
+      geom_bar(width = 1, stat = "identity") +#
+      scale_fill_manual(values = c("blue", "green")) +#
+      coord_polar("y", start = pi / 3) +#
+      labs(title = "percentile for review with tips in reviews")
+df <- data.frame(#
+      variable = c("tips in review", "tips not in review"),#
+      value = c(0.0465563, 0.9534437)#
+)#
+ggplot(df, aes(x = "", y = value, fill = variable)) +#
+      geom_bar(width = 1, stat = "identity") +#
+      scale_fill_manual(values = c("blue", "green")) +#
+      coord_polar("y", start = pi / 3) +#
+      labs(title = "percentile for review with tips in tips")
+df <- data.frame(#
+      variable = c("tips in review", "tips not in review"),#
+      value = c(0.0465563, 0.9534437)#
+)#
+ggplot(df, aes(x = "", y = value, fill = variable)) +#
+      geom_bar(width = 1, stat = "identity") +#
+      scale_fill_manual(values = c("blue", "green")) +#
+      coord_polar("y", start = pi / 3) +#
+      labs(title = "percentile for tips with reviews in tips")
+cyl <- c(13.05, 10.7)
+library(ggplot2)
+qplot(factor(cyl), data=mtcars, geom="bar", fill=factor(cyl))
+d <- c(13.05, 10.7)
+qplot(factor(cyl), data=d, geom="bar", fill=factor(cyl))
+tpye(mtcars)
+type(mtcars)
+str(mtcars)
+d <- as.data.frame(d)
+str(d)
+qplot(factor(d), data=d, geom="bar", fill=factor(d))
+d <- c("average length of tips in review"= 13.1, "average length of tips not in review" = 10.7)
+d
+d <- as.matrix(d)
+str(d)
+d
+colnames(d) <- "avg_len"
+d
+qplot(factor(avg_len), data=d, geom="bar", fill=factor(avg_len))
+d <- as.data.frame(d)
+qplot(factor(avg_len), data=d, geom="bar", fill=factor(avg_len))
+d
+15.45+4+2.89+2.29+17+10.92+5.96+1.15+0.93+1.37
+10.92+5.96+1.15+0.93+1.37+17+4+2.89+2.29+15.45
+2.59 + 3.69 + 1.29 * 2 + 1.44
+73.48 * 2
+0.5*0.2*0.1*0.5*0.5*0.2*0.3
+2/7
+8.79 + 6.99 + 11.69 + 21.77 + 11.79 + 13.39 + 4.99
+171.09 - 71.70 - 4.99 - 14.99
+library(readr)#
+setwd("~/GitHub/KaggleBNP")#
+train <- read_csv("train.csv")
+train[, -1]
+library(readr)#
+setwd("~/GitHub/KaggleBNP")#
+train <- read_csv("train.csv")
+train <- train[, -1]
+active <- as.data.frame(train[1, ])#
+passive <- as.data.frame(train[1, ])#
+for (i in 1:200) {#
+      if (train[i, ]$target == 1) { # complete observation#
+            active <- rbind(active, train[i, ])#
+      } else { # incomplete observation#
+            passive <- rbind(passive, train[i, ])#
+      }     #
+}
+head(active)
+mean(is.na(active))
+mean(is.na(passive))

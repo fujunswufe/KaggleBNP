@@ -1,10 +1,8 @@
 # this preprocessing pipeline is for imputating missing value to -1 
 # however, this is a naive way
 
-setwd("~/GitHub/KaggleBNP")
-
 library(readr)
-cat("reading data, including train and test\n")
+setwd("~/GitHub/KaggleBNP")
 train <- read_csv("train.csv")
 test <- read_csv("test.csv")
 
